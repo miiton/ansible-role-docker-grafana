@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: miiton
+  description: Grafana on docker
+  company: "miiton"
+  license: "MIT"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - "focal"
+        - "jammy"
+  galaxy_tags:
+    - docker
+    - monitoring
+
+dependencies:
+  - name: docker-caddy
+    src: git+git@github.com:miiton/ansible-role-docker-caddy.git
+    version: main

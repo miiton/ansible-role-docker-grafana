@@ -1,0 +1,64 @@
+---
+- name: Create directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    mode: 0755
+  with_items:
+    - /opt/docker-compose-service/grafana
+
+- name: Put docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker-compose-service/grafana/docker-compose.yml
+  notify: Restart grafana
+
+- name: Start grafana
+  systemd:
+    name: docker-compose-service@grafana
+    enabled: yes
+    state: started
+
+- name: Delete caddy conf
+  uri:
+    url: http://localhost:2019/id/{{ grafana_host }}/
+    method: DELETE
+    headers:
+      Content-Type: application/json
+      Origin: http://localhost:2019
+    status_code:
+      - 200
+      - 404
+
+- name: Update caddy
+  uri:
+    url: http://localhost:2019/config/apps/http/servers/{{ caddy_servername }}/routes/
+    method: POST
+    headers:
+      Content-Type: application/json
+      Origin: http://localhost:2019
+    return_content: yes
+    status_code: 200
+    body_format: json
+    body: |
+      {
+        "@id": "{{ grafana_host }}",
+        "match": [
+          {
+            "host": [
+              "{{ grafana_host }}"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "handler": "reverse_proxy",
+            "upstreams": [
+              {
+                "dial": "grafana:3000"
+              }
+            ]
+          }
+        ],
+        "terminal": true
+      }

@@ -1,0 +1,7 @@
+---
+# grafana_host: gragana.example.com
+# grafana_admin_password: hogehoge
+# grafana_auth0_enable: true
+# grafana_auth0_domain: https://<TENANT>.auth0.com
+# grafana_auth0_client_id: ""
+# grafana_auth0_secret: ""

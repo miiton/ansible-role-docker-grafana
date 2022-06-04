@@ -1,0 +1,7 @@
+---
+- name: Restart grafana
+  systemd:
+    name: docker-compose-service@grafana
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
