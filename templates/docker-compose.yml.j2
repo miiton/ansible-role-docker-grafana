@@ -6,13 +6,13 @@ services:
     environment:
       - GF_SERVER_ROOT_URL=https://{{ grafana_host }}/
       - GF_SECURITY_ADMIN_PASSWORD={{ grafana_admin_password }}
+{% if grafana_auth0_enable %}
       - GF_AUTH_GENERIC_OAUTH_ENABLED=true
       - GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP=true
       - GF_AUTH_GENERIC_OAUTH_TEAM_IDS=''
       - GF_AUTH_GENERIC_OAUTH_ALLOWED_ORGANIZATIONS=''
       - GF_AUTH_GENERIC_OAUTH_ALLOWED_DOMAINS=''
-{% if grafana_auth0_enable %}
-    - GF_AUTH_GENERIC_OAUTH_NAME=Auth0
+      - GF_AUTH_GENERIC_OAUTH_NAME=Auth0
       - GF_AUTH_GENERIC_OAUTH_CLIENT_ID={{ grafana_auth0_client_id }}
       - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET={{ grafana_auth0_secret }}
       - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
