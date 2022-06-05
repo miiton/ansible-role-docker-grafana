@@ -11,15 +11,15 @@ services:
       - GF_AUTH_GENERIC_OAUTH_TEAM_IDS=''
       - GF_AUTH_GENERIC_OAUTH_ALLOWED_ORGANIZATIONS=''
       - GF_AUTH_GENERIC_OAUTH_ALLOWED_DOMAINS=''
-      {% if grafana_auth0_enable %}}
-      - GF_AUTH_GENERIC_OAUTH_NAME=Auth0
+{% if grafana_auth0_enable %}}
+    - GF_AUTH_GENERIC_OAUTH_NAME=Auth0
       - GF_AUTH_GENERIC_OAUTH_CLIENT_ID={{ grafana_auth0_client_id }}
       - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET={{ grafana_auth0_secret }}
       - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
       - GF_AUTH_GENERIC_OAUTH_AUTH_URL={{ grafana_auth0_domain }}/authorize
       - GF_AUTH_GENERIC_OAUTH_TOKEN_URL={{ grafana_auth0_domain }}/oauth/token
       - GF_AUTH_GENERIC_OAUTH_API_URL={{ grafana_auth0_domain }}/userinfo
-      {% endif %}
+{% endif %}
     volumes:
       - grafana:/var/lib/grafana
     networks:
