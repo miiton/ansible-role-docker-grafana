@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   sv:
-    image: grafana/grafana
+    image: grafana/grafana:9.0.0
     container_name: grafana
     environment:
       - GF_SERVER_ROOT_URL=https://{{ grafana_host }}/
