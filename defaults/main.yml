@@ -1,4 +1,5 @@
 ---
+grafana_version: 9.0.2
 # grafana_host: gragana.example.com
 # grafana_admin_password: hogehoge
 # grafana_auth0_enable: true
